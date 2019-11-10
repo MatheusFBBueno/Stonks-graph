@@ -14,8 +14,8 @@ def graph():
     atual=[data['ABEV'].json(),data["VALE"].json(),data['TTWO'].json(),data['WEGE'].json()]
     sma_atual=[sma['ABEV'].json(),sma["VALE"].json(),sma['TTWO'].json(),sma['WEGE'].json()]
             
+    #fechamento
     for i  in range(len(atual)):
-        
         timeseries=atual[i]["Time Series (5min)"]
         close= [float(item["4. close"]) for item in timeseries.values()]
         
@@ -34,8 +34,8 @@ def graph():
         for i in range(len(close)):
             valores.append(i)
     
+    #volume    
     for i  in range(len(atual)):
-        
         timeseries=atual[i]["Time Series (5min)"]
         close= [float(item["5. volume"]) for item in timeseries.values()]
         
@@ -57,7 +57,7 @@ def graph():
         plt.plot(valores,close[::-1])
         plt.savefig("images/"+ativo+'_volume'+str(total)+'.png')
         plt.close()
-
+    #media movel simples
     for i in range(len(sma_atual)):
         timeseries=sma_atual[i]["Technical Analysis: SMA"]
         close= [float(dado["SMA"]) for dado in timeseries.values()]
@@ -82,7 +82,7 @@ def graph():
         plt.close()
     
     total+=1
-
+#funçoes que realizam as requisições, executam uma pausa para não passar o limite do alpha vantage
 def req_abev():
     global data
     global sma
@@ -107,10 +107,11 @@ def req_wege():
     data["WEGE"]=requests.get("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=WEGE3.SA&interval=5min&apikey=2321684684818")
     sma["WEGE"]=requests.get("https://www.alphavantage.co/query?function=SMA&symbol=WEGE3.SA&interval=5min&time_period=10&series_type=close&apikey=98098406941965481")
     time.sleep(50)
+
 while True:
     req_ttwo()
     req_vale()
     req_wege()
     req_abev()
     graph()
-    time.sleep(60)
+    time.sleep(60)#pausa para fechar 5 minutos
