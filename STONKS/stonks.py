@@ -33,7 +33,11 @@ def graph():
 
         for i in range(len(close)):
             valores.append(i)
-    
+
+        plt.plot(valores,close[::-1])
+        plt.savefig("images/"+ativo+'_close'+str(total)+'.png')
+        plt.close()
+        
     #volume    
     for i  in range(len(atual)):
         timeseries=atual[i]["Time Series (5min)"]
@@ -54,7 +58,7 @@ def graph():
         for i in range(len(close)):
             valores.append(i)
             
-        plt.plot(valores,close[::-1])
+        plt.bar(valores,close[::-1])
         plt.savefig("images/"+ativo+'_volume'+str(total)+'.png')
         plt.close()
     #media movel simples
