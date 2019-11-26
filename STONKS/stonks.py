@@ -3,11 +3,9 @@ import requests
 import matplotlib.pyplot as plt
 import time
 
-total=0
 data={'ABEV':None,'VALE':None,'TTWO':None,'WEGE':None}
 sma={'ABEV':None,'VALE':None,'TTWO':None,'WEGE':None}
 def graph():
-    global total
     global data
     global sma
 
@@ -35,7 +33,7 @@ def graph():
             valores.append(i)
 
         plt.plot(valores,close[::-1])
-        plt.savefig("images/"+ativo+'_close'+str(total)+'.png')
+        plt.savefig("images/"+ativo+'_close'+'.png')
         plt.close()
         
     #volume    
@@ -59,7 +57,7 @@ def graph():
             valores.append(i)
             
         plt.bar(valores,close[::-1])
-        plt.savefig("images/"+ativo+'_volume'+str(total)+'.png')
+        plt.savefig("images/"+ativo+'_volume'+'.png')
         plt.close()
     #media movel simples
     for i in range(len(sma_atual)):
@@ -82,10 +80,9 @@ def graph():
             valores.append(i)
             
         plt.plot(valores,close[::-1])
-        plt.savefig("images/"+ativo+'_sma'+str(total)+'.png')
+        plt.savefig("images/"+ativo+'_sma'+'.png')
         plt.close()
     
-    total+=1
 #funçoes que realizam as requisições, executam uma pausa para não passar o limite do alpha vantage
 def req_abev():
     global data
